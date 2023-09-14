@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 import morgan from "morgan";
+import connectDB from "./config/db.js";
 
 dotenv.config()
 const PORT = process.env.PORT || 5000
@@ -29,3 +30,15 @@ app.use(function (err, req, res, next) {
         message: err.message,
     });
 });
+connectDB()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(
+                `Server is running in ${process.env.NODE_ENV} on port ${PORT}!!!`
+            );
+        });
+    })
+    .catch((err) => {
+        console.error(err);
+        process.exit(1);
+    });
