@@ -1,4 +1,4 @@
-import UserModel from "../models/User";
+import UserModel from "../models/User.js";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 dotenv.config();
@@ -56,16 +56,29 @@ const createUser = async (req, res) => {
  */
 const updateUserById = async (req, res) => {
     try {
-        let updatedUser = await UserModel.updateOne(
-            { _id: req.params.ID },
+
+        let updatedUser = await UserModel.findByIdAndUpdate(
+            req.params.ID,
             { $set: req.body },
             {
                 runValidators: true,
             }
         );
-        res.status(200).send({ success: true, message: "user data updated" });
+
+        if (!updatedUser) {
+            return res.status(404).send({
+                error: true,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).send({
+            success: true,
+            message: "User data updated",
+            data: updatedUser,
+        });
     } catch (error) {
-        res.status(412).send({
+        res.status(500).send({
             error: true,
             message: "There was a problem updating the data",
             data: error,

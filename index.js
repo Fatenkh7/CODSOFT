@@ -4,6 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
+import userRoute from "./routes/user.js"
 
 dotenv.config()
 const PORT = process.env.PORT || 5000
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV === "development") {
 app.get("/", (req, res) => {
     res.send("API is running...");
 });
+app.use("/user", userRoute);
 // error handler
 app.use(function (err, req, res, next) {
     console.log(err)
