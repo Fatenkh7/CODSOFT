@@ -7,7 +7,8 @@ const CategorySchema = new Schema(
             type: String,
             required: [true, "The name of the category cann't be empty"],
             trim: true,
-            unique: [true, "This name of category is already exsict "],
+            unique: true,
+            exists: true,
         },
         description: {
             type: String,

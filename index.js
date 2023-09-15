@@ -5,12 +5,14 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
 import userRoute from "./routes/user.js"
+import categoryRoute from "./routes/category.js"
+import multer from "multer";
 
 dotenv.config()
 const PORT = process.env.PORT || 5000
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +25,10 @@ if (process.env.NODE_ENV === "development") {
 app.get("/", (req, res) => {
     res.send("API is running...");
 });
+
 app.use("/user", userRoute);
+app.use("/category", categoryRoute)
+
 // error handler
 app.use(function (err, req, res, next) {
     console.log(err)
