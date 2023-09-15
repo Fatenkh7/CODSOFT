@@ -50,6 +50,23 @@ export async function getAll(req, res, next) {
     }
 }
 
+//get by id
+export async function getById(req, res) {
+    const { ID } = req.params;
+
+    try {
+        const response = await categoryModel.findById({ _id: ID });
+
+        if (!response) {
+            return res.status(404).json({ success: false, message: 'Category not found' });
+        }
+
+        return res.status(200).json({ success: true, response });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: err.message });
+    }
+}
+
 export async function getByCatName(req, res) {
     const { CATEGORY } = req.params;
 
