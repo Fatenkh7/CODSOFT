@@ -8,7 +8,7 @@ import userRoute from "./routes/user.js"
 import categoryRoute from "./routes/category.js"
 import blogRoute from "./routes/blog.js"
 import commentRoute from "./routes/comment.js"
-
+import likeRoute from "./routes/like.js"
 
 dotenv.config()
 const PORT = process.env.PORT || 5000
@@ -32,6 +32,7 @@ app.use("/user", userRoute);
 app.use("/category", categoryRoute);
 app.use("/blog", blogRoute);
 app.use("/comment", commentRoute)
+app.use("/like", likeRoute)
 
 app.use("/uploads", express.static("./uploads"));
 

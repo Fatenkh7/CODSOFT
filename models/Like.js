@@ -3,6 +3,10 @@ const { Schema, model } = mongoose;
 
 const LikeSchema = new Schema(
     {
+        like: {
+            type: Boolean,
+            default: false
+        },
         idUser: {
             type: Schema.Types.ObjectId,
             ref: "User"
