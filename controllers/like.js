@@ -1,6 +1,9 @@
 import likeModel from "../models/Like.js"
 
 
+/**
+ * @description get all likes
+ */
 export async function getAll(req, res, next) {
     try {
         const data = await likeModel.find();
@@ -11,6 +14,11 @@ export async function getAll(req, res, next) {
     }
 }
 
+
+/**
+ * @description get one like by id
+ * @param {string} req.params.ID
+ */
 export async function getById(req, res) {
     const { ID } = req.params;
 
@@ -27,6 +35,11 @@ export async function getById(req, res) {
     }
 }
 
+
+/**
+ * @description add like
+ * @param {Object} req.body
+ */
 export async function add(req, res) {
     const { like, idUser, idBlog } = req.body;
 
@@ -40,6 +53,12 @@ export async function add(req, res) {
     }
 }
 
+
+/**
+ * @description update like by ID
+ * @param {String} req.params.ID
+ * @param {Object} req.body
+ */
 export async function put(req, res) {
     const { ID } = req.params;
     const { like, idUser, idBlog } = req.body;
@@ -65,6 +84,11 @@ export async function put(req, res) {
     }
 }
 
+
+/**
+ * @description remove like by ID
+ * @param {String} req.params.ID
+ */
 export async function deleteById(req, res) {
     const { ID } = req.params;
     try {

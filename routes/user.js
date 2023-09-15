@@ -1,14 +1,13 @@
 import express from "express";
 const router = express.Router();
-
-import userControllers from "../controllers/user.js";
+import { add, deleteById, getAll, getById, loginUser, put } from "../controllers/user.js"
 import auth from "../middleware/auth.js"
 
-router.get("/", auth, userControllers.getAllUser);
-router.get("/:ID", auth, userControllers.getUserByParam);
-router.put("/:ID", auth, userControllers.updateUserById);
-router.delete("/:ID", auth, userControllers.deleteUserById);
-router.post("/add", auth, userControllers.createUser);
-router.post("/login", userControllers.loginUser);
+router.get("/", auth, getAll);
+router.get("/:ID", auth, getById);
+router.put("/:ID", auth, put);
+router.delete("/:ID", auth, deleteById);
+router.post("/add", auth, add);
+router.post("/login", loginUser);
 
 export default router;

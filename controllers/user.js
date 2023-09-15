@@ -9,7 +9,7 @@ dotenv.config();
  * @description user sign up
  * @param {Object} req.body
  */
-export const createUser = async (req, res) => {
+export async function add(req, res) {
     try {
         const {
             firstName,
@@ -63,7 +63,7 @@ export const createUser = async (req, res) => {
  * @param {String} req.params.id
  * @param {Object} req.body
  */
-const updateUserById = async (req, res) => {
+export async function put(req, res) {
     try {
 
         let updatedUser = await UserModel.findByIdAndUpdate(
@@ -99,7 +99,7 @@ const updateUserById = async (req, res) => {
  * @description delete user by id
  * @param {String} req.params.id
  */
-const deleteUserById = async (req, res) => {
+export async function deleteById(req, res) {
     try {
         await UserModel.findByIdAndDelete({ _id: req.params.ID }).then(
             function (response) {
@@ -127,7 +127,7 @@ const deleteUserById = async (req, res) => {
 /**
  * @description get all users
  */
-const getAllUser = async (req, res) => {
+export async function getAll(req, res) {
     try {
         await UserModel.find({}).then(
             function (response) {
@@ -153,11 +153,12 @@ const getAllUser = async (req, res) => {
         });
     }
 };
+
 /**
  * @description get one user by id
  * @param {string} req.params.ID
  */
-const getUserByParam = async (req, res) => {
+export async function getById(req, res) {
     try {
         UserModel.find({ _id: req.params.ID }).then(
             function (response) {
@@ -188,7 +189,7 @@ const getUserByParam = async (req, res) => {
  * @param {Object} req.body
  */
 
-export const loginUser = async (req, res) => {
+export async function loginUser(req, res) {
     try {
         const { email, password } = req.body;
 
@@ -233,12 +234,11 @@ export const loginUser = async (req, res) => {
     }
 };
 
-
 export default {
-    createUser,
-    updateUserById,
-    deleteUserById,
-    getAllUser,
-    getUserByParam,
+    add,
+    put,
+    deleteById,
+    getAll,
+    getById,
     loginUser
 };

@@ -1,6 +1,9 @@
 import commentModel from "../models/Comment.js"
 
 
+/**
+ * @description get all comments
+ */
 export async function getAll(req, res, next) {
     try {
         const data = await commentModel.find();
@@ -11,6 +14,11 @@ export async function getAll(req, res, next) {
     }
 }
 
+
+/**
+ * @description get one comment by id
+ * @param {string} req.params.ID
+ */
 export async function getById(req, res) {
     const { ID } = req.params;
 
@@ -27,6 +35,10 @@ export async function getById(req, res) {
     }
 }
 
+/**
+ * @description add comment
+ * @param {Object} req.body
+ */
 export async function add(req, res) {
     const { comment, idUser, idBlog } = req.body;
 
@@ -40,6 +52,12 @@ export async function add(req, res) {
     }
 }
 
+
+/**
+ * @description update comment by ID
+ * @param {String} req.params.ID
+ * @param {Object} req.body
+ */
 export async function put(req, res) {
     const { ID } = req.params;
     const { comment, idUser, idBlog } = req.body;
@@ -65,6 +83,11 @@ export async function put(req, res) {
     }
 }
 
+
+/**
+ * @description delete comment by ID
+ * @param {String} req.params.ID
+ */
 export async function deleteById(req, res) {
     const { ID } = req.params;
     try {

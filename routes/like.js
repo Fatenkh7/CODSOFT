@@ -1,12 +1,12 @@
 import express from "express"
 import { add, deleteById, getAll, getById, put } from "../controllers/like.js"
 const router = express.Router()
+import auth from "../middleware/auth.js"
 
-
-router.get("/", getAll)
-router.get("/:ID", getById)
-router.put("/:ID", put)
-router.delete("/:ID", deleteById)
-router.post("/add", add)
+router.get("/", auth, getAll)
+router.get("/:ID", auth, getById)
+router.put("/:ID", auth, put)
+router.delete("/:ID", auth, deleteById)
+router.post("/add", auth, add)
 
 export default router;

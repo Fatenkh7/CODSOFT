@@ -1,6 +1,11 @@
 import blogModel from "../models/Blog.js"
 import * as fs from 'fs';
 
+
+
+/**
+ * @description get all Blogs
+ */
 export async function getAll(req, res, next) {
     try {
         const data = await blogModel.find();
@@ -11,6 +16,11 @@ export async function getAll(req, res, next) {
     }
 }
 
+
+/**
+ * @description get one blog by id
+ * @param {string} req.params.ID
+ */
 export async function getById(req, res) {
     const { ID } = req.params;
 
@@ -27,6 +37,11 @@ export async function getById(req, res) {
     }
 }
 
+
+/**
+ * @description add blog
+ * @param {Object} req.body
+ */
 export async function add(req, res) {
     try {
         const newBlog = new blogModel({
@@ -53,8 +68,12 @@ export async function add(req, res) {
 }
 
 
-//update the blog
 
+/**
+ * @description update blog by ID
+ * @param {String} req.params.ID
+ * @param {Object} req.body
+ */
 export async function put(req, res) {
     try {
         const imageId = req.params.ID;
@@ -98,7 +117,11 @@ export async function put(req, res) {
     }
 }
 
-//delete the blog
+
+/**
+ * @description delete blog by ID
+ * @param {String} req.params.ID
+ */
 export async function deleteBlog(req, res, next) {
     let { ID } = req.params;
     blogModel

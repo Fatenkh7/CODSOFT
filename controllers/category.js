@@ -1,6 +1,12 @@
 import categoryModel from "../models/Category.js";
 
-export async function post(req, res) {
+
+/**
+ * @description add category
+ * @param {Object} req.body
+ */
+
+export async function add(req, res) {
     const { name, description } = req.body;
 
     // Create a new category object
@@ -23,6 +29,11 @@ export async function post(req, res) {
         return res.status(400).json({ message: 'Validation error', errors: newCategory.errors });
     }
 }
+
+
+/**
+ * @description get all categories
+ */
 export async function getAll(req, res, next) {
     try {
         await categoryModel.find({}).then(
@@ -50,7 +61,10 @@ export async function getAll(req, res, next) {
     }
 }
 
-//get by id
+/**
+ * @description get one category by id
+ * @param {string} req.params.ID
+ */
 export async function getById(req, res) {
     const { ID } = req.params;
 
@@ -67,6 +81,10 @@ export async function getById(req, res) {
     }
 }
 
+/**
+ * @description get one category by the name
+ * @param {string} req.params.CATEGORY
+ */
 export async function getByCatName(req, res) {
     const { CATEGORY } = req.params;
 
@@ -83,6 +101,12 @@ export async function getByCatName(req, res) {
     }
 }
 
+
+/**
+ * @description update category by name
+ * @param {String} req.params.CATEGORY
+ * @param {Object} req.body
+ */
 export async function editCategory(req, res) {
     const { CATEGORY } = req.params;
 
@@ -113,6 +137,12 @@ export async function editCategory(req, res) {
         });
     }
 }
+
+
+/**
+ * @description delete category by category name
+ * @param {String} req.params.CATEGORY
+ */
 export async function deleteCategory(req, res) {
     try {
         const removeCategory = await categoryModel.findOneAndDelete({
@@ -126,5 +156,4 @@ export async function deleteCategory(req, res) {
     }
 }
 
-const controller = { getAll, post, editCategory, getByCatName, deleteCategory };
-export default controller;
+export default { getAll, add, editCategory, getByCatName, deleteCategory };
