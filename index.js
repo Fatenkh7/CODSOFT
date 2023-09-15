@@ -7,6 +7,7 @@ import connectDB from "./config/db.js";
 import userRoute from "./routes/user.js"
 import categoryRoute from "./routes/category.js"
 import blogRoute from "./routes/blog.js"
+import commentRoute from "./routes/comment.js"
 
 
 dotenv.config()
@@ -30,8 +31,11 @@ app.get("/", (req, res) => {
 app.use("/user", userRoute);
 app.use("/category", categoryRoute);
 app.use("/blog", blogRoute);
+app.use("/comment", commentRoute)
 
 app.use("/uploads", express.static("./uploads"));
+
+
 // error handler
 app.use(function (err, req, res, next) {
     console.log(err)
