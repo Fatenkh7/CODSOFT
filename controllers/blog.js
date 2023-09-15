@@ -8,11 +8,23 @@ import * as fs from 'fs';
  */
 export async function getAll(req, res, next) {
     try {
-        const data = await blogModel.find();
-        console.log(data);
-        res.status(200).send({ success: true, data });
+        const page = 1;
+        // Use the paginate method to retrieve the first page with 5 results per page
+        const options = {
+            page: page,
+            limit: 5,
+        };
+
+        const { docs, total, totalPages } = await blogModel.paginate({}, options);
+
+        res.status(200).json({
+            success: true,
+            data: docs,
+            total,
+            totalPages,
+        });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).json({ success: false, error: error.message });
     }
 }
 
