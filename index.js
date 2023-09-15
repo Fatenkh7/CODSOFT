@@ -6,7 +6,8 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import userRoute from "./routes/user.js"
 import categoryRoute from "./routes/category.js"
-import multer from "multer";
+import blogRoute from "./routes/blog.js"
+
 
 dotenv.config()
 const PORT = process.env.PORT || 5000
@@ -27,8 +28,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
-app.use("/category", categoryRoute)
+app.use("/category", categoryRoute);
+app.use("/blog", blogRoute);
 
+app.use("/uploads", express.static("./uploads"));
 // error handler
 app.use(function (err, req, res, next) {
     console.log(err)
