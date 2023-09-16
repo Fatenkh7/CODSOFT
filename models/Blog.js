@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
-import mongoosePaginate from "mongoose-paginate-v2"
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const BlogSchema = new Schema(
     {
@@ -20,18 +20,14 @@ const BlogSchema = new Schema(
         },
         idUser: {
             type: Schema.Types.ObjectId,
-            ref: "User"
+            ref: "User",
+            required: true,
         },
         idCategory: {
             type: Schema.Types.ObjectId,
-            ref: "Category"
+            ref: "Category",
+            required: true,
         },
-        // LikesCount: {
-        //     type: Number,
-        // },
-        // commentsCount: {
-        //     type: Number
-        // }
     },
     {
         collection: "Blog",
@@ -44,5 +40,5 @@ const BlogSchema = new Schema(
  */
 BlogSchema.plugin(mongoosePaginate);
 const Blog = model("Blog", BlogSchema);
-Blog.paginate().then({});
+// Blog.paginate().then({});
 export default Blog;
