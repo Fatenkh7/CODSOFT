@@ -194,7 +194,7 @@ export async function loginUser(req, res) {
         const { email, password } = req.body;
 
         // Find the user by email
-        const user = await UserModel.findOne({ email });
+        const user = await UserModel.find({ email });
 
         if (!user) {
             return res.status(404).json({ error: true, message: "User not found" });
