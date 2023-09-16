@@ -46,14 +46,21 @@ export async function add(req, res) {
 
         res.status(201).json({
             success: true,
-            message: "User added successfully",
+            message: "Register successfully",
+            newUser: {
+                _id: newUser._id,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email,
+                userName: newUser.userName
+            },
         });
     } catch (error) {
         console.error(error);
         res.status(410).json({
             error: true,
             message: "There is a problem with saving the data",
-            data: error,
+            data: error.message,
         });
     }
 };
