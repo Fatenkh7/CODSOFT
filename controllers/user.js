@@ -20,21 +20,29 @@ export async function add(req, res) {
             password,
         } = req.body;
 
-        let hashedPassword = password;
-
-        if (password) {
-            // Hash the password if provided
-            hashedPassword = await bcrypt.hash(password, 10);
-        }
-
+        // Validate input data using Mongoose schema
         const newUser = new UserModel({
             firstName,
             lastName,
             userName,
             email,
             phone,
-            password: hashedPassword,
+            password,
         });
+
+        const validationError = newUser.validateSync();
+        if (validationError) {
+            return res.status(400).json({
+                error: true,
+                message: "Validation error",
+                data: validationError.errors,
+            });
+        }
+
+        // Hash the password if provided
+        if (password) {
+            newUser.password = await bcrypt.hash(password, 10);
+        }
 
         await newUser.save();
 
@@ -56,14 +64,40 @@ export async function add(req, res) {
             },
         });
     } catch (error) {
-        console.error(error);
-        res.status(410).json({
-            error: true,
-            message: "There is a problem with saving the data",
-            data: error.message,
-        });
+        if (error.code === 11000) {
+            if (error.keyPattern.userName) {
+                res.status(400).json({
+                    error: true,
+                    message: "Username already taken, please choose a different username.",
+                });
+            } else if (error.keyPattern.email) {
+                res.status(400).json({
+                    error: true,
+                    message: "Email is already registered, please use a different email address.",
+                });
+            } else if (error.keyPattern.phone) {
+                res.status(400).json({
+                    error: true,
+                    message: "Phone number is already registered, please use a different phone number.",
+                });
+            } else {
+                res.status(400).json({
+                    error: true,
+                    message: "Duplicate key error. Please check your input data.",
+                });
+            }
+        } else {
+            console.error(error);
+            res.status(500).json({
+                error: true,
+                message: "There is a problem with saving the data",
+                data: error.message,
+            });
+        }
     }
+
 };
+
 
 /**
  * @description update user information by id

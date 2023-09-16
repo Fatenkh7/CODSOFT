@@ -42,7 +42,7 @@ const UserSchema = new Schema(
             required: [true, "please enter your phone number"],
             unique: [true, "A user is already registered with this phone number"],
             trim: true,
-            match: [/^[0-9]*$/, "Please fill a valid phone number"],
+            match: [/^[0-9\s+-]*$/, "Please fill a valid phone number"],
         },
     },
     {
