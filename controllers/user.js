@@ -192,7 +192,6 @@ export async function getById(req, res) {
 export async function loginUser(req, res) {
     try {
         const { email, password } = req.body;
-
         // Find the user by email
         const user = await UserModel.findOne({ email });
 

@@ -15,10 +15,13 @@ const PORT = process.env.PORT || 5000
 
 const app = express();
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    optionsSuccessStatus: 200,
+    origin: '*',
+    credentials: true,
+}))
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
