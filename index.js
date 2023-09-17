@@ -19,6 +19,7 @@ app.use(cors({
     optionsSuccessStatus: 200,
     origin: '*',
     credentials: true,
+    exposedHeaders: ['Authorization'],
 }))
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
