@@ -37,5 +37,4 @@ const ContactUsSchema = new Schema(
  * @description Data model for contactus page
  */
 const contactus = model("ContactUs", ContactUsSchema);
-
 export default contactus;
