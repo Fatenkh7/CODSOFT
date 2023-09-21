@@ -8,29 +8,19 @@ import * as fs from 'fs';
  */
 export async function getAll(req, res, next) {
     try {
-        const page = req.query.page || 1; // Get the page number from the query parameter, default to 1 if not provided
-        const limit = 5; // Number of results per page
-
-        const options = {
-            page: page,
-            limit: limit,
-            populate: ['idUser', 'idCategory']
-        };
-
-        const { docs, total, totalPages } = await blogModel.paginate({}, options);
+        const blogs = await blogModel.find()
+            .populate('idUser')
+            .populate('idCategory')
+            .exec();
 
         res.status(200).json({
             success: true,
-            data: docs,
-            total,
-            totalPages,
+            data: blogs,
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
 }
-
-
 
 
 /**

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
-import mongoosePaginate from "mongoose-paginate-v2";
+// import mongoosePaginate from "mongoose-paginate-v2";
 
 const BlogSchema = new Schema(
     {
@@ -38,7 +38,7 @@ const BlogSchema = new Schema(
 /**
  * @description Data model for Blog post
  */
-BlogSchema.plugin(mongoosePaginate);
+// BlogSchema.plugin(mongoosePaginate);
 const Blog = model("Blog", BlogSchema);
 // Blog.paginate().then({});
 export default Blog;
