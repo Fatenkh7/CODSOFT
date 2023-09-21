@@ -38,7 +38,7 @@ app.use("/category", categoryRoute);
 app.use("/blog", blogRoute);
 app.use("/comment", commentRoute)
 app.use("/like", likeRoute)
-app.use("contact-us", contactRoute)
+app.use("/contact", contactRoute)
 
 app.use("/uploads", express.static("./uploads"));
 

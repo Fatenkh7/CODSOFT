@@ -1,4 +1,4 @@
-import ContactUs from '../models/ContactUs.js';
+import ContactUs from "../models/ContactUs.js";
 
 
 /**
@@ -80,4 +80,7 @@ export const deleteContactUsById = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+};
+export default {
+    deleteContactUsById, updateContactUsById, getContactUsById, getContactUs, createContactUs
 };

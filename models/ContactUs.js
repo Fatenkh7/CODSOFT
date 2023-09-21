@@ -17,7 +17,6 @@ const ContactUsSchema = new Schema(
             type: String,
             trim: true,
             required: [true, "Email cann't be empty"],
-            unique: [true, "A user is already registered with this email"],
             match: [
                 /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                 "Please fill a valid email address",

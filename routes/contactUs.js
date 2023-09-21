@@ -1,4 +1,5 @@
 import express from 'express';
+const router = express.Router();
 import {
     createContactUs,
     getContactUs,
@@ -7,12 +8,13 @@ import {
     deleteContactUsById,
 } from '../controllers/contactUs.js';
 
-const router = express.Router();
+
 import auth from "../middleware/auth.js"
 
 
-router.post('/', createContactUs);
+
 router.get('/', auth, getContactUs);
+router.post('/add', auth, createContactUs);
 router.get('/:id', auth, getContactUsById);
 router.put('/:id', auth, updateContactUsById);
 router.delete('/:id', auth, deleteContactUsById);
