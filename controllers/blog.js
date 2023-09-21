@@ -8,11 +8,13 @@ import * as fs from 'fs';
  */
 export async function getAll(req, res, next) {
     try {
-        const page = 1;
-        // Use the paginate method to retrieve the first page with 5 results per page
+        const page = req.query.page || 1; // Get the page number from the query parameter, default to 1 if not provided
+        const limit = 5; // Number of results per page
+
         const options = {
             page: page,
-            limit: 5,
+            limit: limit,
+            populate: ['idUser', 'idCategory']
         };
 
         const { docs, total, totalPages } = await blogModel.paginate({}, options);
@@ -29,6 +31,8 @@ export async function getAll(req, res, next) {
 }
 
 
+
+
 /**
  * @description get one blog by id
  * @param {string} req.params.ID
@@ -37,7 +41,9 @@ export async function getById(req, res) {
     const { ID } = req.params;
 
     try {
-        const data = await blogModel.findById({ _id: ID });
+        const data = await blogModel.findById({ _id: ID })
+            .populate('idUser') // Populate the idUser field
+            .populate('idCategory'); // Populate the idCategory field
 
         if (!data) {
             return res.status(404).json({ success: false, message: 'Blog not found' });
@@ -48,6 +54,7 @@ export async function getById(req, res) {
         return res.status(500).json({ success: false, message: err.message });
     }
 }
+
 
 
 /**
