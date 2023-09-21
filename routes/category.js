@@ -4,7 +4,7 @@ import auth from "../middleware/auth.js"
 import {
     getAll,
     editCategory,
-    deleteCategory,
+    deleteById,
     getByCatName,
     getById,
     add,
@@ -15,7 +15,7 @@ router.get("/", auth, getAll);
 router.get("/:ID", auth, getById);
 router.get("/:CATEGORY", auth, getByCatName);
 router.put("/:CATEGORY", auth, editCategory);
-router.delete("/:CATEGORY", auth, deleteCategory);
+router.delete("/:ID", auth, deleteById);
 router.post("/add", add);
 
 export default router;

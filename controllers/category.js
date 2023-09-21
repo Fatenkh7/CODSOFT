@@ -140,20 +140,23 @@ export async function editCategory(req, res) {
 
 
 /**
- * @description delete category by category name
- * @param {String} req.params.CATEGORY
+ * @description delete category by ID
+ * @param {String} req.params.ID
  */
-export async function deleteCategory(req, res) {
+export async function deleteById(req, res) {
+    const { ID } = req.params;
     try {
-        const removeCategory = await categoryModel.findOneAndDelete({
-            name: req.params.CATEGORY,
-        });
-        res
-            .status(204)
-            .json({ message: "This category has been deleted" });
+        const deleteCategory = await categoryModel.findByIdAndDelete(ID);
+        if (!deleteCategory) {
+            return res.status(404).send({
+                error: true,
+                message: "Category not found",
+            });
+        }
+        return res.status(204).json({ success: true });
     } catch (err) {
-        res.status(404).json({ message: err });
+        return res.status(403).json({ success: false, message: err.message });
     }
-}
+};
 
-export default { getAll, add, editCategory, getByCatName, deleteCategory };
+export default { getAll, add, editCategory, getByCatName, deleteById };
