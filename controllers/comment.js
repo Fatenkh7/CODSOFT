@@ -6,8 +6,10 @@ import commentModel from "../models/Comment.js"
  */
 export async function getAll(req, res, next) {
     try {
-        const data = await commentModel.find();
-        console.log(data);
+        const data = await commentModel.find()
+            .populate('idUser')
+            .populate('idBlog')
+            .exec();
         res.status(200).send({ success: true, data });
     } catch (error) {
         res.status(500).send(error);
@@ -23,7 +25,8 @@ export async function getById(req, res) {
     const { ID } = req.params;
 
     try {
-        const data = await commentModel.findById({ _id: ID });
+        const data = await commentModel.findById({ _id: ID }).populate('idUser')
+            .populate('idBlog')
 
         if (!data) {
             return res.status(404).json({ success: false, message: 'Comment not found' });
